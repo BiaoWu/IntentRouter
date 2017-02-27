@@ -1,4 +1,4 @@
-# Activity Router
+# Intent Router
 
 License
 -------
