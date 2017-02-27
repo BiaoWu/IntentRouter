@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.biao.activity.router">
+    package="com.biao.intent.router.sample">
 
   <application
       android:allowBackup="true"

@@ -1,4 +1,4 @@
-package com.biao.activity.router;
+package com.biao.intent.router.sample;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
