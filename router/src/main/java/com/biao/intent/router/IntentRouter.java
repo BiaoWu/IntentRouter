@@ -15,8 +15,66 @@
  */
 package com.biao.intent.router;
 
+import android.app.Activity;
+import android.content.Context;
+import android.support.v4.util.ArrayMap;
+import android.text.TextUtils;
+
 /**
  * @author biaowu.
  */
 public class IntentRouter {
+  private static final ArrayMap<String, IntentProvider> routers = new ArrayMap<>();
+  private static IntentRouterExceptionHandler exceptionHandler;
+
+  private IntentRouter() {
+    // no instance
+  }
+
+  public static void register(String key, IntentProvider router) {
+    if (TextUtils.isEmpty(key)) {
+      throw new IllegalArgumentException("key can not be null");
+    }
+    if (router == null) {
+      throw new IllegalArgumentException("router can not be null");
+    }
+    if (routers.containsKey(key)) {
+      throw new IllegalArgumentException("key(" + key + ") is exist");
+    }
+
+    routers.put(key, router);
+  }
+
+  public static ContextIntent with(Context context) {
+    return new ContextIntentImpl(context);
+  }
+
+  public static ComponentIntent with(Activity activity) {
+    return new ActivityIntent(activity);
+  }
+
+  public static ComponentIntent with(android.app.Fragment fragment) {
+    return new FragmentIntent(fragment);
+  }
+
+  public static ComponentIntent with(android.support.v4.app.Fragment fragmentV4) {
+    return new FragmentV4Intent(fragmentV4);
+  }
+
+  public static void setExceptionHandler(IntentRouterExceptionHandler handler) {
+    if (exceptionHandler != null) {
+      throw new IllegalArgumentException("exceptionHandler already been set");
+    }
+    exceptionHandler = handler;
+  }
+
+  static void handleException(Exception e) {
+    if (exceptionHandler != null) {
+      exceptionHandler.handle(e);
+    }
+  }
+
+  static IntentProvider get(String key) {
+    return routers.get(key);
+  }
 }
