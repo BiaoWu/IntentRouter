@@ -15,13 +15,19 @@
  */
 package com.biao.intent.router;
 
-import android.os.Bundle;
+import android.content.Context;
+import android.content.Intent;
 
 /**
  * @author biaowu.
  */
-public interface ComponentIntent extends ContextIntent {
-  void startActivityForResult(String key, int requestCode);
+class ContextCallImpl extends CommonCallImpl {
+  ContextCallImpl(Context context) {
+    super(context);
+  }
 
-  void startActivityForResult(String key, int requestCode, Bundle args);
+  @Override
+  protected void startActivityForResult(Intent intent, int requestCode) {
+    IntentRouter.handleException(new Exception("Context can not call startActivityForResult"));
+  }
 }

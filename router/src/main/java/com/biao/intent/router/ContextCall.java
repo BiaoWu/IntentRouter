@@ -15,22 +15,13 @@
  */
 package com.biao.intent.router;
 
-import android.app.Activity;
-import android.content.Intent;
+import android.os.Bundle;
 
 /**
  * @author biaowu.
  */
-class ActivityIntent extends ComponentIntentImpl {
-  private Activity activity;
+public interface ContextCall {
+  void startActivity(String key);
 
-  ActivityIntent(Activity activity) {
-    super(activity);
-    this.activity = activity;
-  }
-
-  @Override
-  protected void startActivityForResult(Intent intent, int requestCode) {
-    activity.startActivityForResult(intent, requestCode);
-  }
+  void startActivity(String key, Bundle args);
 }

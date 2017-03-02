@@ -45,20 +45,20 @@ public class IntentRouter {
     routers.put(key, router);
   }
 
-  public static ContextIntent with(Context context) {
-    return new ContextIntentImpl(context);
+  public static ContextCall with(Context context) {
+    return new ContextCallImpl(context);
   }
 
-  public static ComponentIntent with(Activity activity) {
-    return new ActivityIntent(activity);
+  public static ActivityCall with(Activity activity) {
+    return new ActivityCallImpl(activity);
   }
 
-  public static ComponentIntent with(android.app.Fragment fragment) {
-    return new FragmentIntent(fragment);
+  public static FragmentCall with(android.app.Fragment fragment) {
+    return new FragmentCallImpl(fragment);
   }
 
-  public static ComponentIntent with(android.support.v4.app.Fragment fragmentV4) {
-    return new FragmentV4Intent(fragmentV4);
+  public static FragmentCall with(android.support.v4.app.Fragment fragmentV4) {
+    return new FragmentV4CallImpl(fragmentV4);
   }
 
   public static void setExceptionHandler(IntentRouterExceptionHandler handler) {

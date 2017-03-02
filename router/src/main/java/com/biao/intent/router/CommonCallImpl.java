@@ -20,12 +20,25 @@ import android.content.Intent;
 import android.os.Bundle;
 
 /**
+ * 聚合实现，接口分离
+ *
  * @author biaowu.
  */
-abstract class ComponentIntentImpl extends ContextIntentImpl implements ComponentIntent {
+abstract class CommonCallImpl implements ContextCall, ActivityCall, FragmentCall {
+  private final Context context;
 
-  ComponentIntentImpl(Context context) {
-    super(context);
+  CommonCallImpl(Context context) {
+    this.context = context;
+  }
+
+  @Override
+  public void startActivity(String key) {
+    startActivity(key, null);
+  }
+
+  @Override
+  public void startActivity(String key, Bundle args) {
+    startActivityForResult(key, -1, args);
   }
 
   @Override
@@ -48,5 +61,5 @@ abstract class ComponentIntentImpl extends ContextIntentImpl implements Componen
     }
   }
 
-  abstract void startActivityForResult(Intent intent, int requestCode);
+  protected abstract void startActivityForResult(Intent intent, int requestCode);
 }
