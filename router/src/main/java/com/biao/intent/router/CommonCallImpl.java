@@ -31,6 +31,10 @@ abstract class CommonCallImpl implements ContextCall, ActivityCall, FragmentCall
     this.context = context;
   }
 
+  Context getContext() {
+    return context;
+  }
+
   @Override
   public void startActivity(String key) {
     startActivity(key, null);
