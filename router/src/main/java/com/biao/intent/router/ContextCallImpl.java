@@ -28,6 +28,6 @@ class ContextCallImpl extends CommonCallImpl {
 
   @Override
   protected void startActivityForResult(Intent intent, int requestCode) {
-    IntentRouter.handleException(new Exception("Context can not call startActivityForResult"));
+    getContext().startActivity(intent);
   }
 }
