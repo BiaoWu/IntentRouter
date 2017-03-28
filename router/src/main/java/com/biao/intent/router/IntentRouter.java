@@ -26,6 +26,7 @@ import android.text.TextUtils;
 public class IntentRouter {
   private static final ArrayMap<String, IntentProvider> routers = new ArrayMap<>();
   private static IntentRouterExceptionHandler exceptionHandler;
+  private static KeyTransformer keyTransformer;
 
   private IntentRouter() {
     // no instance
@@ -68,6 +69,13 @@ public class IntentRouter {
     exceptionHandler = handler;
   }
 
+  public static void setKeyTransformer(KeyTransformer transformer) {
+    if (keyTransformer != null) {
+      throw new IllegalArgumentException("keyTransformer already been set");
+    }
+    keyTransformer = transformer;
+  }
+
   static void handleException(Exception e) {
     if (exceptionHandler != null) {
       exceptionHandler.handle(e);
@@ -75,6 +83,9 @@ public class IntentRouter {
   }
 
   static IntentProvider get(String key) {
+    if (keyTransformer != null) {
+      key = keyTransformer.transform(key);
+    }
     return routers.get(key);
   }
 }
